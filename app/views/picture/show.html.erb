@@ -1,0 +1,38 @@
+<h1>お気に入り一覧</h1>
+<% if flash[:notice] %>
+<p class="notice"><%=h flash[:notice] %></p>
+<% end %>
+
+<p>
+  <a href= "/picture/index">
+  タイムラインの画像一覧の表示<br/>
+  </a>
+</p>
+
+<% @favorites.each do |favorite| %>
+<a href= <%= favorite[:media_url]%>>
+  <img 
+      src= <%= favorite[:media_url]%>
+      alt=""
+      width="314"
+      height="229"
+      border="0"
+  />
+</a>
+<p>
+  <%= form_tag("/picture/favorite_del", method: "post") do %>
+    <%= hidden_field_tag  :delete_id , favorite[:id]%>
+    <%= submit_tag("お気に入りから削除") %>
+  <% end %>
+
+  <a href= <%= favorite[:src_tweet]%>>
+  元のツイートを表示<br/>
+  </a>
+</p>
+<% end %>
+
+<p>
+  <a href= "/picture/index">
+  タイムラインの画像一覧の表示<br/>
+  </a>
+</p>

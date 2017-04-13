@@ -1,0 +1,39 @@
+<h1>タイムラインの画像一覧</h1>
+
+<% if flash[:notice] %>
+<p class="notice"><%=h flash[:notice] %></p>
+<% end %>
+
+<p>
+  <a href= "/picture/show">
+  お気に入り一覧の表示<br/>
+  </a>
+</p>
+
+<% @url_list.each do |picture_tweet| %>
+<a href= <%= picture_tweet[:media_url]%>>
+  <img 
+      src= <%= picture_tweet[:media_url]%>
+      alt=""
+      width="314"
+      height="229"
+      border="0"
+  />
+</a>
+<p>
+  <%= form_for Favorite.new do |f| %>
+    <%= f.hidden_field :media_url, :value => picture_tweet[:media_url]%>
+    <%= f.hidden_field :src_tweet, :value => picture_tweet[:src_tweet]%>
+    <%= f.submit("お気に入りに追加") %>
+  <% end %>
+  <a href= <%= picture_tweet[:src_tweet]%>>
+  元のツイートを表示<br/>
+  </a>
+</p>
+<% end %>
+
+<p>
+  <a href= "/picture/show">
+  お気に入り一覧の表示<br/>
+  </a>
+</p>
